@@ -11,9 +11,13 @@ namespace Application.Common.Interfaces
 {
     public interface IApplicationDbContext
     {
+        DbSet<User> Users { get; set; }
+        DbSet<UserRoleMapping> UserRoles { get; set; }
         DbSet<Trade> Trades { get; set; }
         DbSet<TradingStrategy> TradingStrategies { get; set; }
         DbSet<Portfolio> Portfolios { get; set; }
+        DbSet<HoldingItem> HoldingItems { get; set; }
+        DbSet<StrategyParameter> StrategyParameters { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

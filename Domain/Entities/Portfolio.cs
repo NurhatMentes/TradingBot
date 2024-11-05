@@ -6,10 +6,10 @@ namespace Domain.Entities
     {
         public decimal Balance { get; private set; }
         public decimal InitialBalance { get; private set; }
-        public List<HoldingItem> HoldingItems { get; private set; }
+        public List<HoldingItem> HoldingItems { get; private set; } = new List<HoldingItem>();
         public List<Trade> ActiveTrades { get; private set; }
 
-        private Portfolio() { } 
+        private Portfolio() { } // For EF Core
 
         public Portfolio(decimal initialBalance)
         {
@@ -22,25 +22,6 @@ namespace Domain.Entities
         public void UpdateBalance(decimal amount)
         {
             Balance += amount;
-        }
-
-        public void UpdateHolding(string symbol, decimal quantity)
-        {
-          
-            var holding = HoldingItems.FirstOrDefault(h => h.Symbol == symbol);
-
-            if (holding != null)
-            {
-                holding.Quantity += quantity;
-            }
-            else
-            {
-                HoldingItems.Add(new HoldingItem
-                {
-                    Symbol = symbol,
-                    Quantity = quantity
-                });
-            }
         }
     }
 }

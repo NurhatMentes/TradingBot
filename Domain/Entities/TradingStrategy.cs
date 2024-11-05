@@ -10,7 +10,7 @@ namespace Domain.Entities
         public decimal MaxPositionSize { get; private set; }
         public TimeFrame TimeFrame { get; private set; }
         public bool IsActive { get; private set; }
-        public Dictionary<string, object> Parameters { get; private set; }
+        public List<StrategyParameter> Parameters { get; private set; } = new List<StrategyParameter>();
         public string Description { get; private set; }
 
         private TradingStrategy() { } 
@@ -20,7 +20,6 @@ namespace Domain.Entities
             decimal riskPercentage,
             decimal maxPositionSize,
             TimeFrame timeFrame,
-            Dictionary<string, object> parameters = null,
             string description = null)
         {
             Name = name;
@@ -28,13 +27,22 @@ namespace Domain.Entities
             MaxPositionSize = maxPositionSize;
             TimeFrame = timeFrame;
             IsActive = true;
-            Parameters = parameters ?? new Dictionary<string, object>();
+            Parameters = new List<StrategyParameter>();
             Description = description;
         }
 
-        public void UpdateParameters(Dictionary<string, object> newParameters)
+        public void UpdateParameters(Dictionary<string, string> newParameters)
         {
-            Parameters = newParameters;
+            Parameters.Clear();
+            foreach (var param in newParameters)
+            {
+                Parameters.Add(new StrategyParameter
+                {
+                    Key = param.Key,
+                    Value = param.Value,
+                    TradingStrategyId = this.Id
+                });
+            }
         }
 
         public void Activate() => IsActive = true;
