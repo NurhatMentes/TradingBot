@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{6F2BAA72-290B-4BAB-9D9E-03FD9769123C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{6F2BAA72-290B-4BAB-9D9E-03FD9769123C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{6F12C1A4-FBBF-4570-8146-03F64AB81552}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{6F12C1A4-FBBF-4570-8146-03F64AB81552}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{CFF74994-1D12-41FD-96FD-AC17CD112EFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{CFF74994-1D12-41FD-96FD-AC17CD112EFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WepAPI", "WepAPI\WepAPI.csproj", "{4C0FDA3F-1190-42E6-94CD-5768657D80F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WepAPI", "WepAPI\WepAPI.csproj", "{4C0FDA3F-1190-42E6-94CD-5768657D80F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{C7474DAB-FABC-4E55-A19F-6CADDFF9C659}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{4C0FDA3F-1190-42E6-94CD-5768657D80F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C0FDA3F-1190-42E6-94CD-5768657D80F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C0FDA3F-1190-42E6-94CD-5768657D80F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7474DAB-FABC-4E55-A19F-6CADDFF9C659}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7474DAB-FABC-4E55-A19F-6CADDFF9C659}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7474DAB-FABC-4E55-A19F-6CADDFF9C659}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7474DAB-FABC-4E55-A19F-6CADDFF9C659}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
