@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
+using FluentValidation.Results;
 
 namespace Core.CrossCuttingConcerns.Validation
 {
@@ -19,6 +14,34 @@ namespace Core.CrossCuttingConcerns.Validation
             {
                 throw new ValidationException(result.Errors);
             }
+        }
+
+        public static void Validate<T>(IValidator<T> validator, T entity)
+        {
+            var context = new ValidationContext<T>(entity);
+            var result = validator.Validate(context);
+
+            if (!result.IsValid)
+            {
+                throw new ValidationException(result.Errors);
+            }
+        }
+
+        public static async Task ValidateAsync<T>(IValidator<T> validator, T entity)
+        {
+            var context = new ValidationContext<T>(entity);
+            var result = await validator.ValidateAsync(context);
+
+            if (!result.IsValid)
+            {
+                throw new ValidationException(result.Errors);
+            }
+        }
+
+        public static ValidationResult ValidateAndGetResult<T>(IValidator<T> validator, T entity)
+        {
+            var context = new ValidationContext<T>(entity);
+            return validator.Validate(context);
         }
     }
 }
