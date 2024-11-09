@@ -1,4 +1,5 @@
-﻿using Domain.Common;
+﻿using Core.Entities.Abstract;
+using Core.Entities.Concrete;
 
 namespace Domain.Entities
 {
@@ -6,10 +7,12 @@ namespace Domain.Entities
     {
         public decimal Balance { get; private set; }
         public decimal InitialBalance { get; private set; }
-        public List<HoldingItem> HoldingItems { get; private set; } = new List<HoldingItem>();
+        public List<HoldingItem> HoldingItems { get; private set; }
         public List<Trade> ActiveTrades { get; private set; }
+        public Guid UserId { get; private set; }
+        public User User { get; private set; }
 
-        private Portfolio() { } // For EF Core
+        private Portfolio() { }
 
         public Portfolio(decimal initialBalance)
         {

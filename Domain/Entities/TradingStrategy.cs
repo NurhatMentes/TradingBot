@@ -1,10 +1,11 @@
-﻿using Domain.Common;
+﻿using Core.Entities.Abstract;
 using Domain.Enums;
 
 namespace Domain.Entities
 {
     public class TradingStrategy : BaseEntity
     {
+        public Guid UserId { get; private set; }
         public string Name { get; private set; }
         public decimal RiskPercentage { get; private set; }
         public decimal MaxPositionSize { get; private set; }
