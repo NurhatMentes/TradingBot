@@ -22,31 +22,73 @@ namespace Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Portfolio>()
-                .HasOne<User>()  
-                .WithMany()     
-                .HasForeignKey(p => p.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+            // Decimal hassasiyetleri
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.Property(e => e.Balance)
+                    .HasColumnType("decimal(18,4)");
+            });
 
+            modelBuilder.Entity<Portfolio>(entity =>
+            {
+                entity.Property(e => e.Balance)
+                    .HasColumnType("decimal(18,4)");
+                entity.Property(e => e.InitialBalance)
+                    .HasColumnType("decimal(18,4)");
 
-            modelBuilder.Entity<TradingStrategy>()
-                .HasOne<User>()  
-                .WithMany()      
-                .HasForeignKey(s => s.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+                // User ilişkisi
+                entity.HasOne<User>()
+                    .WithMany()
+                    .HasForeignKey(p => p.UserId)
+                    .OnDelete(DeleteBehavior.Restrict); // Cascade yerine Restrict kullanıyoruz
+            });
 
-            // Existing configurations...
-            modelBuilder.Entity<Portfolio>()
-                .HasMany(p => p.HoldingItems)
-                .WithOne()
-                .HasForeignKey(h => h.PortfolioId);
+            modelBuilder.Entity<TradingStrategy>(entity =>
+            {
+                entity.Property(e => e.MaxPositionSize)
+                    .HasColumnType("decimal(18,4)");
+                entity.Property(e => e.RiskPercentage)
+                    .HasColumnType("decimal(18,4)");
 
-            modelBuilder.Entity<TradingStrategy>()
-                .HasMany(t => t.Parameters)
-                .WithOne()
-                .HasForeignKey(p => p.TradingStrategyId);
+                // User ilişkisi
+                entity.HasOne<User>()
+                    .WithMany()
+                    .HasForeignKey(s => s.UserId)
+                    .OnDelete(DeleteBehavior.Restrict); // Cascade yerine Restrict kullanıyoruz
+            });
+
+            modelBuilder.Entity<Trade>(entity =>
+            {
+                entity.Property(e => e.EntryPrice)
+                    .HasColumnType("decimal(18,4)");
+                entity.Property(e => e.ExitPrice)
+                    .HasColumnType("decimal(18,4)");
+                entity.Property(e => e.ProfitLoss)
+                    .HasColumnType("decimal(18,4)");
+                entity.Property(e => e.StopLoss)
+                    .HasColumnType("decimal(18,4)");
+                entity.Property(e => e.TakeProfit)
+                    .HasColumnType("decimal(18,4)");
+            });
+
+            modelBuilder.Entity<HoldingItem>(entity =>
+            {
+                entity.Property(e => e.Quantity)
+                    .HasColumnType("decimal(18,4)");
+
+                // Portfolio ilişkisi
+                entity.HasOne<Portfolio>()
+                    .WithMany(p => p.HoldingItems)
+                    .HasForeignKey(h => h.PortfolioId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // İhtiyaç dışı navigation property'leri ignore et
+            modelBuilder.Entity<User>()
+                .Ignore(u => u.PortfolioIds)
+                .Ignore(u => u.StrategyIds);
         }
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
