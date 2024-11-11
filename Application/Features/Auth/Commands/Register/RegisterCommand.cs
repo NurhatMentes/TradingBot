@@ -56,7 +56,7 @@ namespace Application.Features.Auth.Commands.Register
             await _context.Users.AddAsync(user, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken); 
 
-            // Varsayılan Claims oluşturma
+         
             var basicClaims = await _context.OperationClaims
                 .Where(c => new[] {
                 OperationClaimType.UserView.ToString(),
@@ -67,16 +67,16 @@ namespace Application.Features.Auth.Commands.Register
                 }.Contains(c.Name))
                 .ToListAsync(cancellationToken);
 
-            // UserOperationClaim ekleme
+     
             foreach (var claim in basicClaims)
             {
                 var userClaim = new UserOperationClaim(user.Id, claim.Id);
                 await _context.UserOperationClaims.AddAsync(userClaim, cancellationToken);
             }
 
-            await _context.SaveChangesAsync(cancellationToken); // Tüm değişiklikleri kaydediyoruz
+            await _context.SaveChangesAsync(cancellationToken); 
 
-            // Dönüş DTO'su
+         
             var registerDto = new RegisterDto
             {
                 Id = user.Id,
