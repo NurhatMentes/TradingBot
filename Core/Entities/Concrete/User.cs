@@ -25,7 +25,7 @@ namespace Core.Entities.Concrete
 
         private User() { } 
 
-        public User(string firstName, string lastName, string email, string username, byte[] passwordHash, byte[] passwordSalt)
+        public User(string requestFirstName, string firstName, string lastName, string email, string username,
         {
             FirstName = firstName;
             LastName = lastName;
