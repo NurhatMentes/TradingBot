@@ -3,11 +3,11 @@
 public abstract class BaseEntity : IEntity
 {
     public Guid Id { get; set; }
-    public DateTime CreatedAt { get; protected set; }
-    public string CreatedBy { get; protected set; }
-    public DateTime? ModifiedAt { get; protected set; }
-    public string ModifiedBy { get; protected set; }
-    public bool IsDeleted { get; protected set; }
+    public DateTime? CreatedAt { get; set; }
+    public string? CreatedBy { get; set; }
+    public DateTime? ModifiedAt { get; set; }
+    public string? ModifiedBy { get; set; }
+    public bool IsDeleted { get; set; }
 
     protected BaseEntity()
     {

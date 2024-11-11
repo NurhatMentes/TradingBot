@@ -1,15 +1,10 @@
 ﻿using FluentValidation;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Common.Behaviors
 {
     public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-     where TRequest : IRequest<TResponse>
+        where TRequest : IRequest<TResponse>
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 
@@ -33,7 +28,7 @@ namespace Application.Common.Behaviors
                     .ToList();
 
                 if (failures.Count != 0)
-                    throw new Core.Exceptions.ValidationException(failures);
+                    throw new ValidationException(failures);
             }
             return await next();
         }

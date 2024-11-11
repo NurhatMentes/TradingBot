@@ -38,5 +38,15 @@ namespace Core.Extensions
         {
             claims.Add(new Claim("Status", status.ToString()));
         }
+
+        public static string GetUsername(this ClaimsPrincipal claimsPrincipal)
+        {
+            return claimsPrincipal?.Claims.FirstOrDefault(x => x.Type == "Username")?.Value;
+        }
+
+        public static string GetNameIdentifier(this ClaimsPrincipal claimsPrincipal)
+        {
+            return claimsPrincipal?.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+        }
     }
 }

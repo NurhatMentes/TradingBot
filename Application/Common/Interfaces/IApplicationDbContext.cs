@@ -12,6 +12,8 @@ namespace Application.Common.Interfaces
         DbSet<Portfolio> Portfolios { get; set; }
         DbSet<HoldingItem> HoldingItems { get; set; }
         DbSet<StrategyParameter> StrategyParameters { get; set; }
+        DbSet<OperationClaim> OperationClaims { get; }
+        DbSet<UserOperationClaim> UserOperationClaims { get; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

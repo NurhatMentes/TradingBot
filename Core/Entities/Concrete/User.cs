@@ -1,31 +1,32 @@
 ﻿using Core.Entities.Abstract;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.Entities.Concrete
 {
     public class User : BaseEntity
     {
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
-        public string Email { get; private set; }
-        public string Username { get; private set; }
-        public byte[] PasswordHash { get; private set; }
-        public byte[] PasswordSalt { get; private set; }
-        public bool IsActive { get; private set; }
-        public string TelegramChatId { get; private set; }
-        public decimal Balance { get; private set; }
-        public List<OperationClaim> OperationClaims { get; private set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Username { get; set; }
+        public byte[] PasswordHash { get; set; }
+        public byte[] PasswordSalt { get; set; }
+        public bool IsActive { get; set; } = true;
+        public string? TelegramChatId { get; set; }
+        public decimal Balance { get; set; } = 0;
+        public virtual ICollection<UserOperationClaim> UserOperationClaims { get; set; }
 
-        public List<Guid> PortfolioIds { get; private set; }
-        public List<Guid> StrategyIds { get; private set; }
+        public ICollection<Guid> PortfolioIds { get; set; } = new List<Guid>();
+        public ICollection<Guid> StrategyIds { get; set; } = new List<Guid>();
 
-        private User() { } 
+        public User()
+        {
+            UserOperationClaims = new HashSet<UserOperationClaim>();
+        }
 
-        public User(string requestFirstName, string firstName, string lastName, string email, string username,
+
+
+        public User(string firstName, string lastName, string email, string username, byte[] passwordHash, byte[] passwordSalt): this() 
         {
             FirstName = firstName;
             LastName = lastName;
@@ -33,13 +34,7 @@ namespace Core.Entities.Concrete
             Username = username;
             PasswordHash = passwordHash;
             PasswordSalt = passwordSalt;
-            IsActive = true;
-            Balance = 0;
-            OperationClaims = new List<OperationClaim>();
-            PortfolioIds = new List<Guid>();
-            StrategyIds = new List<Guid>();
         }
-
 
         public void UpdateProfile(string firstName, string lastName, string email)
         {
@@ -48,9 +43,10 @@ namespace Core.Entities.Concrete
             Email = email;
         }
 
-        public void UpdatePassword(byte[] newPasswordHash)
+        public void UpdatePassword(byte[] newPasswordHash, byte[] newPasswordSalt)
         {
             PasswordHash = newPasswordHash;
+            PasswordSalt = newPasswordSalt;
         }
 
         public void SetTelegramChatId(string chatId)
